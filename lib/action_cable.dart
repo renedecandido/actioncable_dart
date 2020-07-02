@@ -7,7 +7,7 @@ import 'channel_id.dart';
 
 typedef _OnConnectedFunction = void Function();
 typedef _OnConnectionLostFunction = void Function();
-typedef _OnCannotConnectFunction = void Function(Error error);
+typedef _OnCannotConnectFunction = void Function(Exception error);
 typedef _OnChannelSubscribedFunction = void Function();
 typedef _OnChannelDisconnectedFunction = void Function();
 typedef _OnChannelMessageFunction = void Function(Map message);
