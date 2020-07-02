@@ -7,7 +7,7 @@ import 'channel_id.dart';
 
 typedef _OnConnectedFunction = void Function();
 typedef _OnConnectionLostFunction = void Function();
-typedef _OnCannotConnectFunction = void Function();
+typedef _OnCannotConnectFunction = void Function(Error error);
 typedef _OnChannelSubscribedFunction = void Function();
 typedef _OnChannelDisconnectedFunction = void Function();
 typedef _OnChannelMessageFunction = void Function(Map message);
@@ -35,9 +35,9 @@ class ActionCable {
     // rails gets a ping every 3 seconds
     _socketChannel = IOWebSocketChannel.connect(url,
         headers: headers, pingInterval: Duration(seconds: 3));
-    _listener = _socketChannel.stream.listen(_onData, onError: (_) {
+    _listener = _socketChannel.stream.listen(_onData, onError: (error) {
       this.disconnect(); // close a socket and the timer
-      this.onCannotConnect();
+      this.onCannotConnect(error);
     });
     _timer = Timer.periodic(const Duration(seconds: 3), healthCheck);
   }
